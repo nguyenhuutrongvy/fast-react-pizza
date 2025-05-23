@@ -1,16 +1,12 @@
-import {
-  createBrowserRouter,
-  LoaderFunctionArgs,
-  RouterProvider,
-} from "react-router-dom";
-import Home from "./ui/Home";
-import Error from "./ui/Error";
-import Menu from "./features/menu/Menu";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Cart from "./features/cart/Cart";
-import Order from "./features/order/Order";
+import Menu from "./features/menu/Menu";
 import CreateOrder from "./features/order/CreateOrder";
-import AppLayout from "./ui/AppLayout";
+import Order from "./features/order/Order";
 import { getMenu, getOrder } from "./services/apiRestaurant";
+import AppLayout from "./ui/AppLayout";
+import Error from "./ui/Error";
+import Home from "./ui/Home";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +37,7 @@ const router = createBrowserRouter([
       {
         path: "/order/:orderId",
         element: <Order />,
-        loader: async function loader({ params }: LoaderFunctionArgs) {
+        loader: async function loader({ params }) {
           const order = await getOrder(params.orderId ? params.orderId : "");
           return order;
         },
