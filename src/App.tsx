@@ -1,11 +1,16 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  LoaderFunctionArgs,
+  RouterProvider,
+} from "react-router-dom";
 import Home from "./ui/Home";
 import Error from "./ui/Error";
-import Menu, { loader as menuLoader } from "./features/menu/Menu";
+import Menu from "./features/menu/Menu";
 import Cart from "./features/cart/Cart";
 import Order from "./features/order/Order";
 import CreateOrder from "./features/order/CreateOrder";
 import AppLayout from "./ui/AppLayout";
+import { getMenu, getOrder } from "./services/apiRestaurant";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/menu",
         element: <Menu />,
-        loader: menuLoader,
+        loader: async function loader() {
+          const menu = await getMenu();
+          return menu;
+        },
         errorElement: <Error />,
       },
       {
@@ -33,6 +41,11 @@ const router = createBrowserRouter([
       {
         path: "/order/:orderId",
         element: <Order />,
+        loader: async function loader({ params }: LoaderFunctionArgs) {
+          const order = await getOrder(params.orderId ? params.orderId : "");
+          return order;
+        },
+        errorElement: <Error />,
       },
     ],
   },
