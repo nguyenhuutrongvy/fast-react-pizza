@@ -1,15 +1,15 @@
 import { CartItemType } from "./CartItem";
 
 export type OrderType = {
-  id: string;
+  id?: string;
   status?: string;
-  customer: string;
-  phone: string;
-  address: string;
+  customer?: string;
+  phone?: string;
+  address?: string;
   priority: boolean;
-  estimatedDelivery: string;
+  estimatedDelivery?: string;
   cart: CartItemType[];
-  position: string;
-  orderPrice: number;
-  priorityPrice: number;
+  position?: string;
+  orderPrice?: number;
+  priorityPrice?: number;
 };
