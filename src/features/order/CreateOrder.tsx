@@ -1,4 +1,5 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
+import { useAppSelector } from "../../hooks";
 import { CartItemType } from "../../types/CartItem";
 import Button from "../../ui/Button";
 
@@ -27,6 +28,7 @@ const fakeCart: CartItemType[] = [
 ];
 
 function CreateOrder() {
+  const username = useAppSelector((state) => state.user.username);
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
@@ -42,7 +44,13 @@ function CreateOrder() {
       <Form method="post" action="/order/new">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">First Name</label>
-          <input className="input grow" type="text" name="customer" required />
+          <input
+            className="input grow"
+            type="text"
+            name="customer"
+            defaultValue={username}
+            required
+          />
         </div>
 
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
