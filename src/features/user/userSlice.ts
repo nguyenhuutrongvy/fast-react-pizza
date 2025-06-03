@@ -23,6 +23,7 @@ async function fetchAddress() {
 
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import { createAppSelector } from "../../hooks";
 
 interface UserState {
   username: string;
@@ -43,5 +44,13 @@ const userSlice = createSlice({
 });
 
 export const { updateName } = userSlice.actions;
+
+// Using Reselect
+
+// export const getUsername = (state: RootState) => state.user.username;
+export const getUsername = createAppSelector(
+  [(state) => state.user],
+  (user) => user.username,
+);
 
 export default userSlice.reducer;

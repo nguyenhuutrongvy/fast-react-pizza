@@ -2,6 +2,7 @@ import { Form, useActionData, useNavigation } from "react-router-dom";
 import { useAppSelector } from "../../hooks";
 import { CartItemType } from "../../types/CartItem";
 import Button from "../../ui/Button";
+import { getUsername } from "../user/userSlice";
 
 const fakeCart: CartItemType[] = [
   {
@@ -28,7 +29,7 @@ const fakeCart: CartItemType[] = [
 ];
 
 function CreateOrder() {
-  const username = useAppSelector((state) => state.user.username);
+  const username = useAppSelector(getUsername);
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 

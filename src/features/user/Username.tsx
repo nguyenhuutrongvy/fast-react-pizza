@@ -1,7 +1,8 @@
+import { getUsername } from "./userSlice";
 import { useAppSelector } from "../../hooks";
 
 function Username() {
-  const username = useAppSelector((state) => state.user.username);
+  const username = useAppSelector(getUsername);
 
   if (!username) {
     return null;
