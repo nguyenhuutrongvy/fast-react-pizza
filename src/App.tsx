@@ -4,10 +4,12 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Cart from "./features/cart/Cart";
+import { clearCart } from "./features/cart/cartSlice";
 import Menu from "./features/menu/Menu";
 import CreateOrder from "./features/order/CreateOrder";
 import Order from "./features/order/Order";
 import { createOrder, getMenu, getOrder } from "./services/apiRestaurant";
+import store from "./store";
 import { OrderType } from "./types/Order";
 import AppLayout from "./ui/AppLayout";
 import Error from "./ui/Error";
@@ -60,8 +62,11 @@ const router = createBrowserRouter([
             priority: data.priority === "on",
           };
 
-          // If anything is okay, create new order and redirect
+          // If everything is okay, create new order and redirect
           const newOrder: OrderType = await createOrder(order);
+
+          // Don't overuse this way!
+          store.dispatch(clearCart());
 
           return redirect(`/order/${newOrder.id}`);
         },
