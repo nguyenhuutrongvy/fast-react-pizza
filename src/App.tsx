@@ -8,7 +8,12 @@ import { clearCart } from "./features/cart/cartSlice";
 import Menu from "./features/menu/Menu";
 import CreateOrder from "./features/order/CreateOrder";
 import Order from "./features/order/Order";
-import { createOrder, getMenu, getOrder } from "./services/apiRestaurant";
+import {
+  createOrder,
+  getMenu,
+  getOrder,
+  updateOrder,
+} from "./services/apiRestaurant";
 import store from "./store";
 import { OrderType } from "./types/Order";
 import AppLayout from "./ui/AppLayout";
@@ -79,6 +84,13 @@ const router = createBrowserRouter([
           return order;
         },
         errorElement: <Error />,
+        action: async function action({ params }) {
+          const data = { priority: true };
+          if (params?.orderId) {
+            await updateOrder(params.orderId, data);
+          }
+          return null;
+        },
       },
     ],
   },
